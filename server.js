@@ -5,18 +5,19 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const port = process.env.PORT || 3000;
 
-// CORS 설정
+// CORS 미들웨어를 모든 요청보다 먼저 선언
 server.use(
   cors({
-    origin: '*', // 모든 출처 허용
+    origin: 'https://dainty-pegasus-5bfc34.netlify.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
-// OPTIONS 요청(preflight)에 대한 특정 핸들러 추가
+// Preflight OPTIONS 요청 허용
 server.options('*', cors());
 
+// 나머지 미들웨어
 server.use(middlewares);
 server.use(router);
 
